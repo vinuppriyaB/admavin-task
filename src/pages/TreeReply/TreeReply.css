@@ -1,0 +1,21 @@
+.Tree_reply{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap:10px;
+    max-width: 1000px;
+    margin: auto;
+}
+.Reply_messages{
+    display: flex;
+    flex-direction: column;
+    margin-left: 50px;
+}
+.Hello_content{
+    display: flex;
+    gap:50px;
+    align-items: center;
+    justify-content: space-between;
+    margin-left: 50px;
+}
