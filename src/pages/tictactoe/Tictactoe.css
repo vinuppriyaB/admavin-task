@@ -7,7 +7,6 @@
     justify-content: center;
     align-items: center;
     border:2px solid white;
-    /* color:white; */
     cursor: pointer;
     box-shadow:5px 5px 5px 5px rgb(248, 212, 157);
   
@@ -15,28 +14,23 @@
   
   
   .board{
-    /* width:1000px; */
-    /* width:min-content; */
     margin:30px auto;
     display: grid;
-   
-  
     grid-template-columns:1fr 1fr 1fr;
-    /* grid-template-rows:1fr 1fr 1fr; */
-  
-  
   
   }
+
   .ttt-game{
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     background-color: blanchedalmond;
-    /* background-color: rgb(248, 212, 157); */
-    height:100vh;
+    height:95vh;
     color:#123;
+    padding-bottom: 50px;
   }
+
   .start-player{
     display: flex;
     justify-content: center;
@@ -44,4 +38,47 @@
     flex-direction: row;
     gap:20px;
   
+  }
+  .select_startPlayer_btns{
+    display: flex;
+    gap:20px;
+    /* background-color: aqua; */
+    justify-content: space-around;
+    
+  }
+  .display_Score{
+    font-size: 20px;
+    
+  }
+  .display_Score>span{
+    font-size: 25px;
+  }
+  @media screen and (max-width: 426px) {
+    .square {
+      height: 80px;
+      width: 80px;
+      background-color:#123;
+      font-size: 50px;
+     
+    
+    }
+    .start-player{
+      display: flex;
+      flex-direction: column;
+      /* justify-content: space-between; */
+      align-items: stretch;
+      gap:20px;
+      /* background-color: rgb(201, 118, 17); */
+    
+    }
+    .select_startPlayer_btns{
+      display: flex;
+      /* background-color: aqua; */
+      justify-content: space-around;
+      
+    }
+    h3{
+      margin:5px;
+      
+    }
   }

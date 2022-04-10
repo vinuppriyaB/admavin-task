@@ -3,11 +3,11 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    height:100vh;
+   margin-top:30px;
 }
 .square_board{
-    height: 500px;
-    width: 500px;
+    height: 35vw;
+    width: 35vw;
     margin:0px;
     padding: 0px;
     border: 1px solid black;
@@ -19,16 +19,11 @@
     padding: 0px;
     display: flex;
     flex-wrap: wrap;
-    /* display: grid;
-    grid-template-columns:1fr 1fr;   */
-    background-color: bisque;
 }
 .small_square{
    
     margin:0px;
     padding: 0px;
-    /* border: .01px solid black; 
-    background-color: aqua; */
 }
 
 .right_line{
@@ -36,4 +31,39 @@
 }
 .bottom_line{
     border-bottom:.5px solid black ;
+}
+
+
+@media screen and (max-width: 1026px) {
+    .SquareSplit_game{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+       margin-top:30px;
+    }
+    .square_board{
+        height: 60vw;
+        width: 60vw;
+        margin:0px;
+        padding: 0px;
+        border: 1px solid black;
+    }
+}
+
+@media screen and (max-width: 426px) {
+    .SquareSplit_game{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+       margin-top:30px;
+    }
+    .square_board{
+        height: 80vw;
+        width: 80vw;
+        margin:0px;
+        padding: 0px;
+        border: 1px solid black;
+    }
 }
