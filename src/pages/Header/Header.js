@@ -7,10 +7,10 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton";
 
-// Recruiter Nav bar
+
 
 const Header = () => {
-const [Select,setSelect]=useState([true,false,false,false])
+  const [Select, setSelect] = useState([true, false, false, false]);
   const history = useHistory();
 
   const [anchorEl, setAnchorEl] = useState(null);
@@ -26,9 +26,7 @@ const [Select,setSelect]=useState([true,false,false,false])
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
 
-  //Handle Logout Function to set free the user details store in local Storage
 
-  
   return (
     <div className="Header_container">
       <div className="header_left">
@@ -53,7 +51,7 @@ const [Select,setSelect]=useState([true,false,false,false])
           }}
           className={Select[1] ? " selected " : "title "}
         >
-         Tree Reply
+          Tree Reply
         </Button>
         <Button
           variant="text"
@@ -102,8 +100,6 @@ const [Select,setSelect]=useState([true,false,false,false])
               color: "rgba(234, 180, 30)",
               bgcolor: "rgba(8, 46, 78)",
               fontSize: "10px",
-
-              // fontWeight: "bold",
             }}
             component="nav"
             aria-labelledby="nested-list-subheader"
@@ -117,7 +113,7 @@ const [Select,setSelect]=useState([true,false,false,false])
                 className={Select[0] ? " selected " : "title "}
                 onClick={() => {
                   setSelect([true, false, false, false]);
-                  history.push("/treereply");
+                  history.push("/");
                 }}
               >
                 Home
@@ -136,7 +132,7 @@ const [Select,setSelect]=useState([true,false,false,false])
                   history.push("/treereply");
                 }}
               >
-               Tree Reply
+                Tree Reply
               </div>
             </ListItemButton>
 
@@ -164,9 +160,9 @@ const [Select,setSelect]=useState([true,false,false,false])
               <div
                 className={Select[3] ? " selected" : "title"}
                 onClick={() => {
-                    setSelect([false, false, false, true]);
-                    history.push("/tictactoe");
-                  }}
+                  setSelect([false, false, false, true]);
+                  history.push("/tictactoe");
+                }}
               >
                 Tic Tac Toe
               </div>
@@ -178,4 +174,4 @@ const [Select,setSelect]=useState([true,false,false,false])
   );
 };
 
-export default Header
+export default Header;

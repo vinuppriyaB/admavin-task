@@ -1,67 +1,62 @@
 .Header_container {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    display: flex;
-    justify-content: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20vw;
+  background-color: rgb(2, 36, 65);
+  color: rgba(234, 180, 30) !important;
+  padding: 10px 0px;
+}
+.header_right {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.selected {
+  color: rgba(234, 180, 30) !important;
+}
+
+.title {
+  color: white !important;
+}
+
+.popover_list {
+  font-size: 20px !important;
+  font-weight: bold;
+}
+.smallscreen {
+  display: none;
+}
+.bigscreen {
+  display: flex;
+}
+.popover {
+  display: none;
+}
+@media screen and (max-width: 426px) {
+  .Header_container {
+    padding: 10px 10px;
+    gap: 25vw;
     align-items: center;
-    /* padding: 0px 100px; */
-    gap: 20vw;
+  }
+  .bigscreen {
+    display: none;
+  }
+  .smallscreen {
+    display: block;
+  }
+  .popover {
+    display: block;
+  }
+
+  .More_icon {
+    height: 25px !important;
+    width: 25px !important;
     background-color: rgb(2, 36, 65);
     color: rgba(234, 180, 30) !important;
   }
-  .header_right {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  
-  .selected {
-    /* color: aqua !important; */
-    color: rgba(234, 180, 30) !important;
-    /* color: rgba(234, 180, 30, var(--tw-text-opacity)); */
-  }
-  
-  .title {
-    color: white !important;
-  }
-  /* .heading:hover {
-    color: rgba(234, 180, 30) !important;
-    border-bottom: 3px solid white;
-  } */
-  .popover_list {
-    font-size: 20px !important;
-    font-weight: bold;
-  }
-  .smallscreen {
-    display: none;
-  }
-  .bigscreen {
-    display: flex;
-  }
-  .popover {
-    display: none;
-  }
-  @media screen and (max-width: 426px) {
-    .Header_container {
-      padding: 0px 10px;
-      gap: 25vw;
-    }
-    .bigscreen {
-      display: none;
-    }
-    .smallscreen {
-      display: block;
-    }
-    .popover {
-      display: block;
-    }
-  
-    .More_icon {
-      height: 25px !important;
-      width: 25px !important;
-      background-color: rgb(2, 36, 65);
-      color: rgba(234, 180, 30) !important;
-    }
-  }
+}

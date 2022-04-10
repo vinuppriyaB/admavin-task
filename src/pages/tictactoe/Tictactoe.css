@@ -53,6 +53,9 @@
   .display_Score>span{
     font-size: 25px;
   }
+  .Display_turns{
+    margin-bottom: 10px;
+  }
   @media screen and (max-width: 426px) {
     .square {
       height: 80px;

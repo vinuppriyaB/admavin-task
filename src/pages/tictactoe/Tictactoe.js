@@ -1,6 +1,6 @@
 import React from "react";
 import "./Tictactoe.css";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import useWindowSize from "react-use/lib/useWindowSize";
 import Confetti from "react-confetti";
 import Button from "@mui/material/Button";
@@ -16,10 +16,9 @@ const Tictactoe = () => {
 export default Tictactoe;
 
 function Board() {
- 
   const { width, height } = useWindowSize();
-  const [XPoints,setXPoints]=useState(0);
-  const [OPoints,setOPoints]=useState(0);
+  const [XPoints, setXPoints] = useState(0);
+  const [OPoints, setOPoints] = useState(0);
 
   const [board, setBoard] = useState([
     null,
@@ -59,7 +58,7 @@ function Board() {
   };
 
   const checkWinner = (board) => {
-    console.log("checkwinner")
+    console.log("checkwinner");
     const lines = [
       [0, 1, 2],
       [3, 4, 5],
@@ -79,8 +78,8 @@ function Board() {
     return null;
   };
 
-  const winner = checkWinner(board);  
-  const draw=checkDraw(board);
+  const winner = checkWinner(board);
+  const draw = checkDraw(board);
 
   const restart = () => {
     setBoard([null, null, null, null, null, null, null, null, null]);
@@ -88,26 +87,22 @@ function Board() {
   };
 
   useEffect(() => {
-    if(winner){
-      if(winner==="X")
-      {
-        setXPoints(XPoints+1)
-      }else{
-        setOPoints(OPoints+1)
+    if (winner) {
+      if (winner === "X") {
+        setXPoints(XPoints + 1);
+        window.alert("\n The Winner is  'X'");
+      } else {
+        setOPoints(OPoints + 1);
+        window.alert("\n The Winner is  'O'");
       }
-             
-    }else{
-      if(checkDraw(board) === true)
-      {
-        setXPoints(XPoints+1)
-        setOPoints(OPoints+1)
+    } else {
+      if (checkDraw(board) === true) {
+        setXPoints(XPoints + 1);
+        setOPoints(OPoints + 1);
+        window.alert("\n Match Draw");
       }
     }
-   
-  }, [winner,draw])
-  
-
- 
+  }, [winner, draw]);
 
   return (
     <div className="ttt-game">
@@ -123,33 +118,23 @@ function Board() {
             <h3>Select Start Player</h3>
           </div>
           <div className="select_startPlayer_btns ">
-            <Button
-              style={{
-                color: "black",
-                fontSize: "20px",
-                backgroundColor: "rgb(248, 212, 157)",
-              }}
-              variant="contained"
-              onClick={() => setIsXTurn(true)}
-            >
+            <Button variant="contained" onClick={() => setIsXTurn(true)}>
               X
             </Button>
-         
-            <Button
-              style={{
-                color: "black",
-                fontSize: "20px",
-                backgroundColor: "rgb(248, 212, 157)",
-              }}
-              variant="contained"
-              onClick={() => setIsXTurn(false)}
-            >
+
+            <Button variant="contained" onClick={() => setIsXTurn(false)}>
               O
             </Button>
           </div>
         </div>
       ) : (
-        <div><p className="display_Score"> <span>Score : </span>{` x : O :: ${XPoints} : ${OPoints}`}</p></div>
+        <div>
+          <p className="display_Score">
+            {" "}
+            <span>Score : </span>
+            {` x : O :: ${XPoints} : ${OPoints}`}
+          </p>
+        </div>
       )}
       <div className="board">
         {board.map((val, index) => (
@@ -158,19 +143,11 @@ function Board() {
       </div>
 
       {winner === null && checkDraw(board) === false ? (
-        <h3> {isXTurn ? "X" : "O"} Turn</h3>
+        <h3 className="Display_turns"> {isXTurn ? "X" : "O"} Turn</h3>
       ) : (
         ""
       )}
-      <Button
-        style={{
-          color: "black",
-          fontSize: "20px",
-          backgroundColor: "rgb(248, 212, 157)",
-        }}
-        variant="contained"
-        onClick={() => restart()}
-      >
+      <Button variant="contained" onClick={() => restart()}>
         Restart
       </Button>
 
@@ -192,7 +169,7 @@ function Square({ val, onPlayerClick }) {
       className="square"
       style={styles}
       onClick={() => {
-        console.log("call player click")
+        console.log("call player click");
         onPlayerClick();
       }}
     >
