@@ -30,7 +30,7 @@ const Header = () => {
   return (
     <div className="Header_container">
       <div className="header_left">
-        <h3>ADMAVIN TASK</h3>
+        <h3>AdMAVIN TASK</h3>
       </div>
       <div className="header_right bigscreen">
         <Button
