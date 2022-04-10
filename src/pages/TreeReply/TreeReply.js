@@ -72,7 +72,7 @@ const Reply = ({ val, text, msg, setMsg }) => {
       <div className="Reply_messages">
         {" "}
         {msgArray.map((val, index) => (
-          <Reply val={val} key={index} text={text} msg={msg} />
+          <Reply val={val} key={index} text={text} msg={msg} setMsg={setMsg}/>
         ))}
       </div>
     </div>
