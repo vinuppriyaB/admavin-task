@@ -10,7 +10,7 @@
 }
 .Home_card {
   margin: 30px 30px;
-  background-color: antiquewhite;
+  background-color: antiquewhite !important;
 }
 h3 {
   margin: 0px;
