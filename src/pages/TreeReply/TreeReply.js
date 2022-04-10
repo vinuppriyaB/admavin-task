@@ -4,18 +4,11 @@ import Button from '@mui/material/Button';
 import "./TreeReply.css";
 
 const TreeReply = () => {
+    
     const [msg,setMsg]=useState("");
     const [msgArray,setMsgArray]=useState([]);
 
-    // useEffect(() => {
-    //     const msgcopy=[...msgArray]
-    //     msgcopy.push(msg);
-    //     setMsgArray(msgcopy)
-    // }, [])
-
-    const [isClick,setIsClick]=useState(false)
-
-    const handleClick=()=>{
+     const handleClick=()=>{
         const msgcopy=[...msgArray]
         msgcopy.push(msg);
         setMsgArray(msgcopy)
@@ -33,25 +26,23 @@ const TreeReply = () => {
       <Button variant="contained" onClick={()=>handleClick()}>Reply</Button>
      
       </div>
-      <div className='Reply_messages'> {msgArray.map((val,index)=><Reply val={val} key={index} text={msg}/>)}</div>
+      <div className='Reply_messages'> {msgArray.map((val,index)=><Reply val={val} key={index} msg={msg}/>)}</div>
      
     </div>
   )
 }
 
-const Reply=({val,text})=>{
-    const [msg,setMsg]=useState(text);
+const Reply=({val,text,msg})=>{
+    
+    const [replyMsg,setReplyMsg]=useState("");
     const [msgArray,setMsgArray]=useState([]);
 
-    // useEffect(() => {
-    //     const msgcopy=[...msgArray]
-    //     msgcopy.push(msg);
-    //     setMsgArray(msgcopy)
-    // }, [])
+    
 
     const [isClick,setIsClick]=useState(false)
 
     const handleClick=()=>{
+        setReplyMsg(msg)
         const msgcopy=[...msgArray]
         msgcopy.push(msg);
         setMsgArray(msgcopy)
@@ -67,7 +58,7 @@ const Reply=({val,text})=>{
             <p>{val}</p>
             <Button variant="contained" onClick={()=>handleClick()}>Reply</Button>
             </div>
-            <div className='Reply_messages'> {msgArray.map((val,index)=><Reply val={val} key={index} text={msg}/>)}</div>
+            <div className='Reply_messages'> {msgArray.map((val,index)=><Reply val={val} key={index} text={text} msg={msg}/>)}</div>
      
             </div>
         
@@ -77,8 +68,3 @@ const Reply=({val,text})=>{
 
 
 export default TreeReply
-// useEffect(() => {
-//     const msgcopy=[...msgArray]
-//     msgcopy.push(msg);
-//     setMsgArray(msgcopy)
-// }, [])

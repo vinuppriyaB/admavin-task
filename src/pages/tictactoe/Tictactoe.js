@@ -1,6 +1,6 @@
 import React from "react";
 import "./Tictactoe.css";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import useWindowSize from "react-use/lib/useWindowSize";
 import Confetti from "react-confetti";
 import Button from "@mui/material/Button";
@@ -16,7 +16,11 @@ const Tictactoe = () => {
 export default Tictactoe;
 
 function Board() {
+ 
   const { width, height } = useWindowSize();
+  const [XPoints,setXPoints]=useState(0);
+  const [OPoints,setOPoints]=useState(0);
+
   const [board, setBoard] = useState([
     null,
     null,
@@ -40,7 +44,7 @@ function Board() {
 
   let checkDraw = (board) => {
     for (let i = 0; i < board.length; i++) {
-      if (board[i] !== "x" && board[i] !== "o") return false;
+      if (board[i] !== "X" && board[i] !== "O") return false;
     }
     return true;
   };
@@ -54,7 +58,8 @@ function Board() {
     }
   };
 
-  const decideWinner = (board) => {
+  const checkWinner = (board) => {
+    console.log("checkwinner")
     const lines = [
       [0, 1, 2],
       [3, 4, 5],
@@ -74,16 +79,39 @@ function Board() {
     return null;
   };
 
-  const winner = decideWinner(board);
+  const winner = checkWinner(board);  
+  const draw=checkDraw(board);
 
   const restart = () => {
     setBoard([null, null, null, null, null, null, null, null, null]);
     setIsXTurn(true);
   };
 
+  useEffect(() => {
+    if(winner){
+      if(winner==="X")
+      {
+        setXPoints(XPoints+1)
+      }else{
+        setOPoints(OPoints+1)
+      }
+             
+    }else{
+      if(checkDraw(board) === true)
+      {
+        setXPoints(XPoints+1)
+        setOPoints(OPoints+1)
+      }
+    }
+   
+  }, [winner,draw])
+  
+
+ 
+
   return (
     <div className="ttt-game">
-      <h1>TIC TAC TOE</h1>
+      <h2>TIC TAC TOE</h2>
       {winner !== null || checkDraw(board) === true ? (
         <Confetti width={width} height={height} />
       ) : (
@@ -92,13 +120,13 @@ function Board() {
       {winner === null && checkBoard(board) === true ? (
         <div className="start-player">
           <div>
-            <h1>Select Start Player</h1>
+            <h3>Select Start Player</h3>
           </div>
-          <div>
+          <div className="select_startPlayer_btns ">
             <Button
               style={{
                 color: "black",
-                fontSize: "30px",
+                fontSize: "20px",
                 backgroundColor: "rgb(248, 212, 157)",
               }}
               variant="contained"
@@ -106,12 +134,11 @@ function Board() {
             >
               X
             </Button>
-          </div>
-          <div>
+         
             <Button
               style={{
                 color: "black",
-                fontSize: "30px",
+                fontSize: "20px",
                 backgroundColor: "rgb(248, 212, 157)",
               }}
               variant="contained"
@@ -122,23 +149,23 @@ function Board() {
           </div>
         </div>
       ) : (
-        ""
+        <div><p className="display_Score"> <span>Score : </span>{` x : O :: ${XPoints} : ${OPoints}`}</p></div>
       )}
       <div className="board">
         {board.map((val, index) => (
-          <Square val={val} key={index} onPlayerClick={() => handleClick(index)} />
+          <Square val={val} onPlayerClick={() => handleClick(index)} />
         ))}
       </div>
 
       {winner === null && checkDraw(board) === false ? (
-        <h1> {isXTurn ? "X" : "O"} Turn</h1>
+        <h3> {isXTurn ? "X" : "O"} Turn</h3>
       ) : (
         ""
       )}
       <Button
         style={{
           color: "black",
-          fontSize: "30px",
+          fontSize: "20px",
           backgroundColor: "rgb(248, 212, 157)",
         }}
         variant="contained"
@@ -159,13 +186,13 @@ function Board() {
 }
 
 function Square({ val, onPlayerClick }) {
-  // const [value,setValue] = useState(val);
   const styles = { color: val === "X" ? "green" : "red" };
   return (
     <div
       className="square"
       style={styles}
       onClick={() => {
+        console.log("call player click")
         onPlayerClick();
       }}
     >
