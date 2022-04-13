@@ -16,10 +16,12 @@ const Tictactoe = () => {
 export default Tictactoe;
 
 function Board() {
+  const [click, setClick] = useState(false);
   const { width, height } = useWindowSize();
   const [XPoints, setXPoints] = useState(0);
   const [OPoints, setOPoints] = useState(0);
-
+  let winner = null;
+  let draw = null;
   const [board, setBoard] = useState([
     null,
     null,
@@ -34,6 +36,20 @@ function Board() {
 
   const [isXTurn, setIsXTurn] = useState(true);
 
+  let checkboardforinput = (board) => {
+    let count = 0;
+    for (let i = 0; i < board.length; i++) {
+      if (board[i] !== null) {
+        count = count + 1;
+      }
+      if (count >= 5) {
+        console.log(count);
+        winner = checkWinner(board);
+        return true;
+      }
+      return false;
+    }
+  };
   let checkBoard = (board) => {
     for (let i = 0; i < board.length; i++) {
       if (board[i] !== null) return false;
@@ -49,6 +65,10 @@ function Board() {
   };
 
   const handleClick = (index) => {
+    console.log("click");
+    setClick(true);
+    checkboardforinput(board);
+    winner = checkWinner(board);
     if (!winner && !board[index]) {
       const boardcopy = [...board];
       boardcopy[index] = isXTurn ? "X" : "O";
@@ -69,6 +89,7 @@ function Board() {
       [0, 4, 8],
       [2, 4, 6],
     ];
+
     for (let i = 0; i < lines.length; i++) {
       const [a, b, c] = lines[i];
       if (board[a] !== null && board[a] === board[b] && board[b] === board[c]) {
@@ -78,15 +99,13 @@ function Board() {
     return null;
   };
 
-  const winner = checkWinner(board);
-  const draw = checkDraw(board);
-
   const restart = () => {
     setBoard([null, null, null, null, null, null, null, null, null]);
     setIsXTurn(true);
   };
 
   useEffect(() => {
+    draw = checkDraw(board);
     if (winner) {
       if (winner === "X") {
         setXPoints(XPoints + 1);
@@ -102,17 +121,17 @@ function Board() {
         window.alert("\n Match Draw");
       }
     }
-  }, [winner, draw]);
+  }, [winner, draw, setClick, checkboardforinput]);
 
   return (
     <div className="ttt-game">
       <h2>TIC TAC TOE</h2>
-      {winner !== null || checkDraw(board) === true ? (
+      {/* {winner !== null || checkDraw(board) === true ? (
         <Confetti width={width} height={height} />
       ) : (
         ""
-      )}
-      {winner === null && checkBoard(board) === true ? (
+      )} */}
+      {checkBoard(board) === true ? (
         <div className="start-player">
           <div>
             <h3>Select Start Player</h3>
@@ -142,7 +161,7 @@ function Board() {
         ))}
       </div>
 
-      {winner === null && checkDraw(board) === false ? (
+      {checkDraw(board) === false ? (
         <h3 className="Display_turns"> {isXTurn ? "X" : "O"} Turn</h3>
       ) : (
         ""
@@ -151,13 +170,13 @@ function Board() {
         Restart
       </Button>
 
-      {winner ? (
+      {/* {winner ? (
         <h1>Winner is: {winner}</h1>
       ) : winner === null && checkDraw(board) === true ? (
         <h1>Match Draw</h1>
       ) : (
         ""
-      )}
+      )} */}
     </div>
   );
 }
