@@ -20,8 +20,9 @@ function Board() {
   const { width, height } = useWindowSize();
   const [XPoints, setXPoints] = useState(0);
   const [OPoints, setOPoints] = useState(0);
+  const [count, setCount] = useState(0);
   let winner = null;
-  let draw = null;
+
   const [board, setBoard] = useState([
     null,
     null,
@@ -36,20 +37,6 @@ function Board() {
 
   const [isXTurn, setIsXTurn] = useState(true);
 
-  let checkboardforinput = (board) => {
-    let count = 0;
-    for (let i = 0; i < board.length; i++) {
-      if (board[i] !== null) {
-        count = count + 1;
-      }
-      if (count >= 5) {
-        console.log(count);
-        winner = checkWinner(board);
-        return true;
-      }
-      return false;
-    }
-  };
   let checkBoard = (board) => {
     for (let i = 0; i < board.length; i++) {
       if (board[i] !== null) return false;
@@ -58,27 +45,49 @@ function Board() {
   };
 
   let checkDraw = (board) => {
-    for (let i = 0; i < board.length; i++) {
-      if (board[i] !== "X" && board[i] !== "O") return false;
+    if (!winner) {
+      for (let i = 0; i < board.length; i++) {
+        if (board[i] !== "X" && board[i] !== "O") return false;
+      }
     }
+
     return true;
   };
 
-  const handleClick = (index) => {
-    console.log("click");
+  const handleClick = (e, index, board) => {
+    e.preventDefault();
     setClick(true);
-    checkboardforinput(board);
-    winner = checkWinner(board);
-    if (!winner && !board[index]) {
+
+    updateBoard(board, index);
+  };
+  const updateBoard = (board, index) => {
+    if (!winner && !board[index] && count == 0) {
       const boardcopy = [...board];
       boardcopy[index] = isXTurn ? "X" : "O";
       setBoard(boardcopy);
       setIsXTurn(!isXTurn);
     }
   };
+  useEffect(() => {
+    if (click === true) checkboardforinput(board);
+  }, [click, board]);
+
+  let checkboardforinput = (board) => {
+    let count = 0;
+    for (let i = 0; i < board.length; i++) {
+      if (board[i] !== null) {
+        count = count + 1;
+      }
+    }
+
+    if (count >= 5) {
+      winner = checkWinner(board);
+      return true;
+    }
+    return false;
+  };
 
   const checkWinner = (board) => {
-    console.log("checkwinner");
     const lines = [
       [0, 1, 2],
       [3, 4, 5],
@@ -102,35 +111,40 @@ function Board() {
   const restart = () => {
     setBoard([null, null, null, null, null, null, null, null, null]);
     setIsXTurn(true);
+    setCount(0);
   };
 
   useEffect(() => {
-    draw = checkDraw(board);
-    if (winner) {
-      if (winner === "X") {
-        setXPoints(XPoints + 1);
-        window.alert("\n The Winner is  'X'");
+    if (count == 0) {
+      if (winner) {
+        if (winner === "X") {
+          setXPoints(XPoints + 1);
+          setCount(count + 1);
+          window.alert("\n The Winner is  'X'");
+        } else {
+          setOPoints(OPoints + 1);
+          setCount(count + 1);
+          window.alert("\n The Winner is  'O'");
+        }
       } else {
-        setOPoints(OPoints + 1);
-        window.alert("\n The Winner is  'O'");
-      }
-    } else {
-      if (checkDraw(board) === true) {
-        setXPoints(XPoints + 1);
-        setOPoints(OPoints + 1);
-        window.alert("\n Match Draw");
+        if (checkDraw(board) === true) {
+          setXPoints(XPoints + 1);
+          setOPoints(OPoints + 1);
+          setCount(count + 1);
+          window.alert("\n Match Draw");
+        }
       }
     }
-  }, [winner, draw, setClick, checkboardforinput]);
+  }, [checkboardforinput]);
 
   return (
     <div className="ttt-game">
       <h2>TIC TAC TOE</h2>
-      {/* {winner !== null || checkDraw(board) === true ? (
+      {winner !== null || checkDraw(board) === true ? (
         <Confetti width={width} height={height} />
       ) : (
         ""
-      )} */}
+      )}
       {checkBoard(board) === true ? (
         <div className="start-player">
           <div>
@@ -157,11 +171,15 @@ function Board() {
       )}
       <div className="board">
         {board.map((val, index) => (
-          <Square val={val} onPlayerClick={() => handleClick(index)} />
+          <Square
+            val={val}
+            key={index}
+            onPlayerClick={(e) => handleClick(e, index, board)}
+          />
         ))}
       </div>
 
-      {checkDraw(board) === false ? (
+      {!winner && checkDraw(board) === false ? (
         <h3 className="Display_turns"> {isXTurn ? "X" : "O"} Turn</h3>
       ) : (
         ""
@@ -169,14 +187,6 @@ function Board() {
       <Button variant="contained" onClick={() => restart()}>
         Restart
       </Button>
-
-      {/* {winner ? (
-        <h1>Winner is: {winner}</h1>
-      ) : winner === null && checkDraw(board) === true ? (
-        <h1>Match Draw</h1>
-      ) : (
-        ""
-      )} */}
     </div>
   );
 }
@@ -187,9 +197,8 @@ function Square({ val, onPlayerClick }) {
     <div
       className="square"
       style={styles}
-      onClick={() => {
-        console.log("call player click");
-        onPlayerClick();
+      onClick={(e) => {
+        onPlayerClick(e);
       }}
     >
       {val}
